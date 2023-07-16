@@ -95,6 +95,7 @@ pub fn decode(string: impl AsRef<str>) -> Option<Vec<u8>> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use proptest::prelude::*;
 
     #[test]
     fn test_decode_invalid_input() {
@@ -109,5 +110,15 @@ mod tests {
         let decoded = decode(empty_encoded_data);
 
         assert_eq!(decoded, Some(vec![]));
+    }
+
+    proptest! {
+        #[test]
+        fn test_encode_decode(bytes in proptest::collection::vec(0u8..=255u8, 0..100)) {
+            let encoded = encode(&bytes);
+            let decoded = decode(&encoded);
+
+            assert_eq!(decoded, Some(bytes));
+        }
     }
 }

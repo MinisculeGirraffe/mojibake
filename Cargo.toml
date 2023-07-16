@@ -1,7 +1,7 @@
 [package]
 name = "mojibake"
 description = "Encode/Decode bytes as emoji base2048"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 repository = "https://github.com/MinisculeGirraffe/mojibake/tree/main"
 readme = "readme.md"

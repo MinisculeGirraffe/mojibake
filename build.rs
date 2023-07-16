@@ -13,6 +13,8 @@ fn main() {
     let mut tail_number_map = phf_codegen::OrderedMap::new();
     let emoji_path = Path::new(&cwd).join("emoji-sequences.txt");
     let emoji_file = File::open(emoji_path).unwrap();
+    //These alone will goof up the grapheme boundary and cause decoding issues.
+    let forbidden_chars = vec!["🏻", "🏼", "🏽", "🏾", "🏿"];
     let lines: Vec<_> = io::BufReader::new(emoji_file)
         .lines()
         .map(|line| line.unwrap())
@@ -52,7 +54,11 @@ fn main() {
     }
 
     // Now you can index into emoji_map to get an emoji by its number, and find the number of an emoji with .iter().position().
-    for (index, emoji) in emoji_list.iter().enumerate() {
+    for (index, emoji) in emoji_list
+        .iter()
+        .filter(|i| !forbidden_chars.contains(&i.as_str()))
+        .enumerate()
+    {
         if index < 2048 {
             emoji_map.entry(index as u16, format!(r#""{emoji}""#).as_str());
             number_map.entry(emoji.as_str(), format!("{index}").as_str());

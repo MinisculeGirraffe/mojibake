@@ -1,7 +1,7 @@
 use mojibake::{decode, encode};
 use unicode_segmentation::UnicodeSegmentation;
 fn main() {
-    let data = "Input, but as emoji";
+    let data = "Test Input";
     println!("Original Text:");
     print_info(data);
     let encoded = encode(data);

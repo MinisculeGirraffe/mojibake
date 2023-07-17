@@ -2,7 +2,7 @@ use std::io::{self, Read, Write};
 
 use crate::{EMOJI_MAP, TAIL_MAP};
 
-#[inline(always)]
+#[inline]
 fn bytes_to_emojis<'a>(stage: &mut u16, remaining: &mut u8, byte: u8) -> Option<&'a str> {
     let byte = u16::from(byte);
     let need = 11 - *remaining;
@@ -14,15 +14,15 @@ fn bytes_to_emojis<'a>(stage: &mut u16, remaining: &mut u8, byte: u8) -> Option<
             .expect("Somehow Unicode got rid of some emoji characters");
 
         *stage = byte & ((1 << *remaining) - 1);
-        return Some(emoji);
+        Some(emoji)
     } else {
         *stage = (*stage << 8) | byte;
         *remaining += 8;
-        return None;
+        None
     }
 }
 
-#[inline(always)]
+#[inline]
 fn handle_remaining_bits<'a>(stage: u16, remaining: u8) -> Option<&'a str> {
     if remaining == 0 {
         return None;
@@ -38,17 +38,17 @@ fn handle_remaining_bits<'a>(stage: u16, remaining: u8) -> Option<&'a str> {
                 .expect("Somehow Unicode got rid of some emoji characters")
         }
     };
-    return Some(emoji);
+    Some(emoji)
 }
 
-#[inline(always)]
+#[inline]
 fn push_str(source: Option<&str>, dst: &mut String) {
     if let Some(str) = source {
-        dst.push_str(str)
+        dst.push_str(str);
     }
 }
 
-#[inline(always)]
+#[inline]
 fn write_str(source: Option<&str>, dst: &mut impl Write) -> io::Result<()> {
     if let Some(str) = source {
         dst.write_all(str.as_bytes())?;
@@ -139,7 +139,8 @@ pub fn encode(bytes: impl AsRef<[u8]>) -> String {
 /// encode_stream(reader, &mut writer).expect("encoding failed");
 /// println!("{}", String::from_utf8(writer.into_inner()).unwrap());
 /// ```
-pub fn encode_stream<R: Read, W: Write>(mut reader: R, mut writer: W) -> io::Result<()> {
+#[allow(clippy::module_name_repetitions)]
+pub fn encode_stream<R: Read, W: Write>(reader: &mut R, mut writer: &mut W) -> io::Result<()> {
     let mut buffer = [0; 2]; // read two bytes at a time
     let mut stage = 0x0000u16;
     let mut remaining = 0;

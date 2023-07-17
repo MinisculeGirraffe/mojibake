@@ -133,10 +133,10 @@ pub fn encode(bytes: impl AsRef<[u8]>) -> String {
 /// use std::io::Cursor;
 ///
 /// let input = vec![0x31, 0x32, 0x33];
-/// let reader = Cursor::new(input);
+/// let mut reader = Cursor::new(input);
 /// let mut writer = Cursor::new(Vec::new());
 ///
-/// encode_stream(reader, &mut writer).expect("encoding failed");
+/// encode_stream(&mut reader, &mut writer).expect("encoding failed");
 /// println!("{}", String::from_utf8(writer.into_inner()).unwrap());
 /// ```
 #[allow(clippy::module_name_repetitions)]

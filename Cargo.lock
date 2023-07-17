@@ -146,7 +146,7 @@ checksum = "ef53942eb7bf7ff43a617b3e2c1c4a5ecf5944a7c1bc12d7ee39bbb15e5c1519"
 
 [[package]]
 name = "mojibake"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "phf",
  "phf_codegen",

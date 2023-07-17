@@ -1,7 +1,7 @@
 use mojibake::{decode, encode};
 use unicode_segmentation::UnicodeSegmentation;
 fn main() {
-    let data = "Shrek 2 was the greatest film ever made!!";
+    let data = "Input, but as emoji";
     println!("Original Text:");
     print_info(data);
     let encoded = encode(data);

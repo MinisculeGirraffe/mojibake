@@ -75,14 +75,14 @@ fn main() {
         emoji_map.build()
     )
     .unwrap();
-    write!(&mut file, ";\n").unwrap();
+    writeln!(&mut file, ";").unwrap();
     write!(
         &mut file,
         "pub static NUMBER_MAP: phf::ordered_map::OrderedMap<&'static str,u16> = {}",
         number_map.build()
     )
     .unwrap();
-    write!(&mut file, ";\n").unwrap();
+    writeln!(&mut file, ";").unwrap();
 
     write!(
         &mut file,
@@ -90,7 +90,7 @@ fn main() {
         tail_map.build()
     )
     .unwrap();
-    write!(&mut file, ";\n").unwrap();
+    writeln!(&mut file, ";").unwrap();
     write!(
         &mut file,
         "pub static TAIL_NUMBER_MAP: phf::ordered_map::OrderedMap<&'static str,u16> = {}",

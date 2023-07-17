@@ -1,20 +1,2 @@
-[package]
-name = "mojibake"
-description = "Encode/Decode bytes as emoji base2048"
-version = "0.2.0"
-edition = "2021"
-repository = "https://github.com/MinisculeGirraffe/mojibake/tree/main"
-readme = "readme.md"
-license-file = "license.txt"
-license = "MIT"
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
-phf = { version = "0.11.1", default-features = false }
-unicode-segmentation = "1.10.1"
-[build-dependencies]
-phf = { version = "0.11.1", default-features = false }
-phf_codegen = "0.11.1"
-
-[dev-dependencies]
-proptest = "1.2.0"
+[workspace]
+members = ["mojibake", "mojibake-bin"]

@@ -1,2 +1,2 @@
 [workspace]
-members = ["mojibake"]
+members = ["mojibake", "mojibake-bin"]
